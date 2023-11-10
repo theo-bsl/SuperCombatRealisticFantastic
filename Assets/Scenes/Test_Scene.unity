@@ -123,6 +123,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &253503286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 253503287}
+  m_Layer: 0
+  m_Name: Foot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &253503287
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253503286}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1397321359}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &751891910
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +260,7 @@ GameObject:
   - component: {fileID: 1395910866}
   - component: {fileID: 1395910865}
   - component: {fileID: 1395910864}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -429,7 +460,8 @@ Transform:
   m_LocalPosition: {x: -4.48, y: 1.47, z: -0.55290747}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 253503287}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1397321360
@@ -574,7 +606,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25e2a8562d312e14293e3e6af3ed1945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _JumpForce: {x: 0, y: 100, z: 0}
+  _groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  _velocity: {x: 0, y: 0, z: 0}
+  _JumpVelocity: 0
+  _JumpStartVelocity: 5
+  _velocityMultiplicator: 0.8
+  _gravityScale: 5
+  _gravity: 0
+  _gravityMultiplicator: 1.05
+  _moveSpeedGround: 10
+  _moveSpeedAir: 7.5
+  _jumpSpeed: 5
+  _maxHoldJumpBtn: 0.2
 --- !u!54 &1397321362
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -584,8 +629,8 @@ Rigidbody:
   m_GameObject: {fileID: 1397321355}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 1
+  m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -597,11 +642,11 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
+  m_Constraints: 126
+  m_CollisionDetection: 1
 --- !u!1 &2042920604
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,7 +899,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25e2a8562d312e14293e3e6af3ed1945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _JumpForce: {x: 5, y: 5, z: 0}
+  _groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  _velocity: {x: 0, y: 0, z: 0}
+  _JumpVelocity: 0
+  _JumpStartVelocity: 5
+  _velocityMultiplicator: 0.8
+  _gravityScale: 5
+  _gravity: 0
+  _gravityMultiplicator: 1.05
+  _moveSpeedGround: 10
+  _moveSpeedAir: 7.5
+  _jumpSpeed: 5
+  _maxHoldJumpBtn: 0.2
 --- !u!54 &2042920611
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -864,8 +922,8 @@ Rigidbody:
   m_GameObject: {fileID: 2042920604}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 1
+  m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -877,10 +935,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1 &2043081210
 GameObject:
