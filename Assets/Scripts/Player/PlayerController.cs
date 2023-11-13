@@ -33,10 +33,11 @@ public class PlayerController : MonoBehaviour
     private float _timeHoldBtn = 0;
 
     private bool _isMoving = false;
-    private bool _isJumpBtnPressed = false;
-    private bool _isGrounded = false;
+    [SerializeField] private bool _isJumpBtnPressed = false;
+    [SerializeField] private bool _isGrounded = false;
     private bool _ejectionCanBeReset = false;
     private bool _isStun = false;
+    [SerializeField] private bool _canDoubleJump = true;
     [SerializeField] private bool _isWatchingRight = false;
 
     private void Awake()
@@ -51,7 +52,6 @@ public class PlayerController : MonoBehaviour
     {
         IsGrounded();
         Stun();
-        Debug.Log(_isGrounded);
         Move();
         Jump();
         Gravity();
@@ -130,6 +130,7 @@ public class PlayerController : MonoBehaviour
         {
             _transform.position = hitInfo.point + Vector3.up;
             _isGrounded = true;
+            _canDoubleJump = true;
             if(_ejectionCanBeReset)
             {
                 _ejectionCanBeReset = false;
@@ -162,9 +163,16 @@ public class PlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
         _isJumpBtnPressed = context.ReadValueAsButton();
-        if (_isGrounded && !_playerManager.IsAttacking && !_isStun)
+        if ((_isGrounded || _canDoubleJump) && !_playerManager.IsAttacking && !_isStun && _isJumpBtnPressed)
         {
+            if(!_isGrounded)
+            {
+                _velocity.y = 0;
+                _gravity = 0;
+                _canDoubleJump = false;
+            }
             _timeHoldBtn = Time.time + _maxHoldJumpBtn;
+
             if (_isJumpBtnPressed)
             {
                 _JumpVelocity = _JumpStartVelocity;
