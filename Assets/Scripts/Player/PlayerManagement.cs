@@ -9,6 +9,7 @@ public class PlayerManagement : MonoBehaviour
 
     [SerializeField] private float _life = 0;
     [SerializeField] private float _maxLife = 100;
+    [SerializeField] private int _nbLife = 3;
 
     private float _waitToRegainStamina = 2;
     private float _waitCounter = 0;
@@ -67,6 +68,8 @@ public class PlayerManagement : MonoBehaviour
     public float GetMaxStamina()
     { return _maxStamina; }
 
+
+
     public void ActiveLightAttack()
     {
         if(!_isAttacking)
@@ -91,4 +94,5 @@ public class PlayerManagement : MonoBehaviour
     }
 
     public bool IsAttacking { get => _isAttacking; set => _isAttacking = value; }
+    public int NbLife { get => _nbLife; set => _nbLife = value; }
 }
