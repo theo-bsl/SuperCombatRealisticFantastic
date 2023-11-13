@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         //rb = GetComponent<Rigidbody>();
-        _playerManager = GetComponent<PlayerManagement>();
+        _playerManagement = GetComponent<PlayerManagement>();
         _transform = GetComponent<Transform>();
     }
 
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        if (!_playerManager.IsAttacking && !_isStun)
+        if (!_playerManagement.IsAttacking && !_isStun)
         {
             if (_isMoving)
             {
@@ -176,7 +176,7 @@ public class PlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
         _isJumpBtnPressed = context.ReadValueAsButton();
-        if (_isGrounded && !_playerManager.IsAttacking && !_isStun)
+        if (_isGrounded && !_playerManagement.IsAttacking && !_isStun)
         {
             _timeHoldBtn = Time.time + _maxHoldJumpBtn;
             if (_isJumpBtnPressed)
@@ -189,13 +189,13 @@ public class PlayerController : MonoBehaviour
     public void OnLightAttack(InputAction.CallbackContext context) 
     {
         if(!_isStun) 
-            _playerManager.ActiveLightAttack();
+            _playerManagement.ActiveLightAttack();
     }
 
     public void OnPowerfulAttack(InputAction.CallbackContext context)
     {
         if (!_isStun)
-            _playerManager.ActivePowerfulAttack();
+            _playerManagement.ActivePowerfulAttack();
     }
 
     public void OnProtect(InputAction.CallbackContext context)

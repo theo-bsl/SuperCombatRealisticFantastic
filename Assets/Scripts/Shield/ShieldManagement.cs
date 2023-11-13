@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ShieldManagement : MonoBehaviour
@@ -12,6 +13,7 @@ public class ShieldManagement : MonoBehaviour
     private float _originalShieldColorAlpha;
     private float _playerStamina;
     private float _playerMaxStamina;
+    private Vector2 _minMaxScale = new Vector2(.5f, 2.5f);
 
     private bool _isDefending = false;
 
@@ -36,26 +38,24 @@ public class ShieldManagement : MonoBehaviour
     {
         _playerStamina = _playerManagement.GetStamina();
 
-        SetScale(_playerStamina);
-        SetColor(_playerStamina);
-        SetActive(_playerStamina);
+        SetScale();
+        SetColor();
+        SetActive();
     }
 
-    private void SetScale(float Stamina)
+    private void SetScale()
     {
-        float slowStamina = _playerStamina + (_playerMaxStamina - _playerStamina) / 2;
-
-        _shieldTransform.localScale = _originalShieldScale * slowStamina / 100f;
+        _shieldTransform.localScale = Vector3.one * Mathf.Lerp(_minMaxScale.x, _minMaxScale.y, _playerStamina / 100);
     }
 
-    private void SetColor(float Stamina)
+    private void SetColor()
     {
         Color newColor = Color.Lerp(Color.white, Color.red, (_playerMaxStamina - _playerStamina) / 100f);
         newColor.a = _originalShieldColorAlpha;
         _shieldMaterial.color = newColor;
     }
 
-    private void SetActive(float Stamina)
+    private void SetActive()
     {
         _shield.SetActive(_isDefending && _playerStamina > 0);
     }

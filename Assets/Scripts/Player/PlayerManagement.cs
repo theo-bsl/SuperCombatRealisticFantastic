@@ -8,16 +8,13 @@ public class PlayerManagement : MonoBehaviour
     public float _waitCounter = 0;
     public bool _canRegainStamina = true;
 
+    private bool _isAttacking = false;
+    private bool _isDefending = false;
+
     public GameObject[] _attacks = new GameObject[2]; // [0] = lightAttack // [1] = powerfulAttack
 
     [SerializeField] private float _life = 0;
     [SerializeField] private float _maxLife = 100;
-
-    private float _waitToRegainStamina = 2;
-    private float _waitCounter = 0;
-    private bool _canRegainStamina = true;
-    private bool _isAttacking = false;
-    private bool _isDefending = false;
 
     private void Awake()
     {
