@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     //private Rigidbody rb;
     private Transform _transform;
     private PlayerManagement _playerManager;
+    private ShieldManagement _shieldManager;
 
     public LayerMask _groundLayerMask;
 
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _velocityMultiplicator = .8f;
     [SerializeField] private float _gravityScale = 9.1f;
     [SerializeField] private float _gravity = 0;
+    [SerializeField] private float _maxGravity = 20;
     [SerializeField] private float _gravityMultiplicator = 1.2f;
     [SerializeField] private float _moveSpeedGround = 5.0f;
     [SerializeField] private float _moveSpeedAir = 7.5f;
@@ -44,6 +46,7 @@ public class PlayerController : MonoBehaviour
     {
         //rb = GetComponent<Rigidbody>();
         _playerManager = GetComponent<PlayerManagement>();
+        _shieldManager = GetComponent<ShieldManagement>();
         _transform = GetComponent<Transform>();
     }
 
@@ -101,8 +104,11 @@ public class PlayerController : MonoBehaviour
         if (_gravityScale != 0)
         {
             _velocity.y += -_gravity;
-            _gravity *= _gravityMultiplicator;
 
+            if (_gravity < _maxGravity)
+                _gravity *= _gravityMultiplicator;
+            else
+                _gravity = _maxGravity;
         }
 
     }
@@ -125,7 +131,6 @@ public class PlayerController : MonoBehaviour
 
     private void IsGrounded()
     {
-        Debug.DrawRay(_transform.position, -transform.up * 1, Color.red);
         if(Physics.Raycast(_transform.position, -transform.up, out RaycastHit hitInfo, 1.1f, _groundLayerMask))
         {
             _transform.position = hitInfo.point + Vector3.up;
@@ -157,7 +162,6 @@ public class PlayerController : MonoBehaviour
     {
         _verticalMovement = context.ReadValue<Vector2>();
         _isMoving = Mathf.Abs(_verticalMovement.x) > 0;
-        Debug.Log(_verticalMovement.x + "   ::   "+ _verticalMovement.y);
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -194,6 +198,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnProtect(InputAction.CallbackContext context)
     {
+        _playerManager.SetDefending(context.ReadValueAsButton());
+        _shieldManager.SetDefending(context.ReadValueAsButton());
 
     }
 

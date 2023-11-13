@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerManagement : MonoBehaviour
 {
     private float _stamina = 100;
+    private float _maxStamina = 100;
 
     public GameObject[] _attacks = new GameObject[2]; // [0] = lightAttack // [1] = powerfulAttack
 
@@ -62,6 +63,9 @@ public class PlayerManagement : MonoBehaviour
 
     public float GetStamina()
     { return _stamina; }
+
+    public float GetMaxStamina()
+    { return _maxStamina; }
 
     public void ActiveLightAttack()
     {
