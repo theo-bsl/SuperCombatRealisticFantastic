@@ -8,7 +8,21 @@ public class PlayerManagement : MonoBehaviour
     public float _waitCounter = 0;
     public bool _canRegainStamina = true;
 
-    public bool _isDefending = false;
+    public GameObject[] _attacks = new GameObject[2]; // [0] = lightAttack // [1] = powerfulAttack
+
+    [SerializeField] private float _life = 0;
+    [SerializeField] private float _maxLife = 100;
+
+    private float _waitToRegainStamina = 2;
+    private float _waitCounter = 0;
+    private bool _canRegainStamina = true;
+    private bool _isAttacking = false;
+    private bool _isDefending = false;
+
+    private void Awake()
+    {
+        _life = _maxLife;
+    }
 
     private void Update()
     {
@@ -47,6 +61,7 @@ public class PlayerManagement : MonoBehaviour
         }
     }
 
+
     public void SetDefending(bool defending)
     { _isDefending = defending; }
 
@@ -55,4 +70,29 @@ public class PlayerManagement : MonoBehaviour
 
     public float GetMaxStamina()
     { return _stamina; }
+    
+    public void ActiveLightAttack()
+    {
+        if(!_isAttacking)
+        {
+        _isAttacking = true;
+        _attacks[0].SetActive(true);
+        }
+    }
+
+    public void ActivePowerfulAttack()
+    {
+        if (!_isAttacking)
+        {
+            _isAttacking = true;
+            _attacks[1].SetActive(true);
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        _life -= damage;
+    }
+
+    public bool IsAttacking { get => _isAttacking; set => _isAttacking = value; }
 }
