@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerManagement : MonoBehaviour
 {
     public float _stamina = 100;
+    private float _maxStamina = 100;
     public float _waitToRegainStamina = 2;
     public float _waitCounter = 0;
     public bool _canRegainStamina = true;
@@ -26,7 +27,7 @@ public class PlayerManagement : MonoBehaviour
             _stamina = 0;
             _canRegainStamina = false;
 
-            _waitCounter += Time.deltaTime;
+            _waitCounter += _isDefending ? 0 : Time.deltaTime;
 
             if (_waitCounter >= _waitToRegainStamina)
             {
@@ -35,13 +36,14 @@ public class PlayerManagement : MonoBehaviour
             }
         }
 
-        if (_canRegainStamina && _stamina < 100)
+        if (_canRegainStamina && _stamina < _maxStamina)
         {
             _stamina += 10 * Time.deltaTime;
         }
-        else if (_stamina > 100)
+        
+        if (_stamina > _maxStamina)
         {
-            _stamina = 100;
+            _stamina = _maxStamina;
         }
     }
 
@@ -49,5 +51,8 @@ public class PlayerManagement : MonoBehaviour
     { _isDefending = defending; }
 
     public float GetStamina()
+    { return _stamina; }
+
+    public float GetMaxStamina()
     { return _stamina; }
 }

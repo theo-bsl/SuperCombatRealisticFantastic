@@ -2,11 +2,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-//[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
     //private Rigidbody rb;
     private Transform _transform;
+    private PlayerManagement _playerManagement;
+    private ShieldManagement _shieldManagement;
 
     public LayerMask _groundLayerMask;
 
@@ -14,15 +16,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector3 _velocity = Vector3.zero;
 
     [SerializeField] private float _JumpVelocity = 0;
-    [SerializeField] private float _JumpStartVelocity = 10;
+    [SerializeField] private float _JumpStartVelocity = 5;
     [SerializeField] private float _velocityMultiplicator = .8f;
-    [SerializeField] private float _gravityScale = 9.1f;
+    [SerializeField] private float _gravityScale = 5;
     [SerializeField] private float _gravity = 0;
-    [SerializeField] private float _gravityMultiplicator = 1.2f;
-    [SerializeField] private float _moveSpeedGround = 5.0f;
+    [SerializeField] private float _maxGravity = 15;
+    [SerializeField] private float _gravityMultiplicator = 1.05f;
+    [SerializeField] private float _moveSpeedGround = 10.0f;
     [SerializeField] private float _moveSpeedAir = 7.5f;
     [SerializeField] private float _jumpSpeed = 5.0f;
-    [SerializeField] private float _maxHoldJumpBtn = .5f;
+    [SerializeField] private float _maxHoldJumpBtn = 0.2f;
     private float _timeHoldBtn = 0;
 
     private bool _isMoving = false;
@@ -34,11 +37,18 @@ public class PlayerController : MonoBehaviour
         _transform = GetComponent<Transform>();
     }
 
+    private void Start()
+    {
+        _playerManagement = GetComponent<PlayerManagement>();
+        _shieldManagement = GetComponent<ShieldManagement>();
+    }
+
 
     private void Update()
     {
         IsGrounded();
-        Debug.Log(_isGrounded);
+        //Debug.Log(_isGrounded);
+        //Debug.Log("qdnofsnjfn   "+_isJumpBtnPressed);
         Move();
         Jump();
         Gravity();
@@ -60,6 +70,10 @@ public class PlayerController : MonoBehaviour
         }
         else if(_gravity == 0)
             _gravity = _gravityScale;
+        else if (_gravity > _maxGravity)
+        {
+            _gravity = _maxGravity;
+        }
 
 
         if (_gravityScale != 0)
@@ -89,11 +103,11 @@ public class PlayerController : MonoBehaviour
 
     private void IsGrounded()
     {
-        Debug.DrawRay(_transform.position, -transform.up * 1, Color.red);
+        Debug.DrawRay(_transform.position, -transform.up * 1.1f, Color.red);
         if(Physics.Raycast(_transform.position, -transform.up, out RaycastHit hitInfo, 1.1f, _groundLayerMask))
         {
-            Debug.Log("aaaa  ::: " + hitInfo.point);
-            _transform.position = hitInfo.point + Vector3.up;
+            //Debug.Log("aaaa  ::: " + hitInfo.point);
+            _transform.position = hitInfo.point+ Vector3.up;
             _isGrounded = true;
         }
         else
@@ -104,7 +118,7 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyVelocity()
     {
-        Debug.Log(_velocity);
+        //Debug.Log(_velocity);
         _transform.position += _velocity * Time.deltaTime;
         _velocity = Vector3.zero;
     }
@@ -141,6 +155,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnProtect(InputAction.CallbackContext context)
     {
-
+        _playerManagement.SetDefending(context.ReadValueAsButton());
+        _shieldManagement.SetDefending(context.ReadValueAsButton());
     }
 }
