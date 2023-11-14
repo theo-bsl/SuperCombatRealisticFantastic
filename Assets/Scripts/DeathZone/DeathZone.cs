@@ -14,11 +14,6 @@ public class DeathZone : MonoBehaviour
 
     private void Update()
     {
-        if (playerList.Count == 0)
-        {
-            playerList = GameManager.Instance.PlayerList;
-        }
-
         for (int i = 0; i < playerList.Count; i++)
         {
             if (playerList[i].transform.position.y < deathZoneLimitStart)
@@ -33,7 +28,7 @@ public class DeathZone : MonoBehaviour
                 }
                 else
                 {
-                    Destroy(playerList[i]);
+                    playerList[i].SetActive(false);
                     GameManager.Instance.RemovePlayer(playerList[i]);
                 }
             }

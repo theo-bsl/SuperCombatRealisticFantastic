@@ -1,16 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
     public int nbPlayer = 2;
-    public GameObject PlayerPrefab;
-    private List<GameObject> playerList = new List<GameObject>(4);
-    private List<Color> playerColors = new List<Color>()
-    { Color.blue, Color.red, Color.green, Color.yellow };
+    public List<GameObject> PlayerList;
 
     private void Awake()
     {
@@ -24,9 +21,14 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (playerList.Count == 1)
+        if (PlayerList.Count == 1)
         {
             GameOver();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene("GameScene");
         }
     }
 
@@ -34,32 +36,13 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < nbPlayer; i++)
         {
-            GameObject player = Instantiate(PlayerPrefab);
-            playerList.Add(player);
-            player.name = "Player" + i;
-
-            player.transform.position = SpawnPointManager.Instance.GetSpawnPoint();
-
-            SetPlayerColor(player, playerColors[i]);
-
-            player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player " + (i + 1));
-        }
-
-        SpawnPointManager.Instance.FreeAllSpawnPoint();
-    }
-
-    private void SetPlayerColor(GameObject player, Color color)
-    {
-        foreach (var renderer in player.GetComponentsInChildren<Renderer>())
-        {
-            renderer.material.color = color;
+            PlayerList[i].SetActive(true);
+            PlayerList[i].transform.position = SpawnPointManager.Instance.GetSpawnPoint();
         }
     }
-
-    public List<GameObject> PlayerList { get {  return playerList; } }
 
     public void RemovePlayer(GameObject player)
-    { playerList.Remove(player); }
+    { PlayerList.Remove(player); }
 
     private void GameOver()
     {

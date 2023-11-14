@@ -7,7 +7,12 @@ public class SpawnPointManager : MonoBehaviour
     public static SpawnPointManager Instance;
 
     public GameObject[] spawnPoints;
-    private Dictionary<GameObject, bool> dictFreeSpawnPoints = new Dictionary<GameObject, bool>();
+    private Dictionary<GameObject, bool> dictFreeSpawnPoints = new Dictionary<GameObject, bool>(4);
+
+    private List<int> freeSpawnPointsIndex = new List<int>();
+
+    private List<GameObject> playerList = new List<GameObject>(4);
+    private int distanceToReactivate = 5;
 
     private void Awake()
     {
@@ -19,23 +24,60 @@ public class SpawnPointManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        playerList = GameManager.Instance.PlayerList;
+    }
+
     public Vector3 GetSpawnPoint()
     {
-        var freeSpawnPoints = dictFreeSpawnPoints.Where(x => x.Value == true).ToList();
+        freeSpawnPointsIndex.Clear();
+        SetFreeSpawnPoint();
 
-        if (freeSpawnPoints.Count == 0)
+        for (int i = 0; i < spawnPoints.Length - 1; i++)
         {
-            FreeAllSpawnPoint();
-            freeSpawnPoints = dictFreeSpawnPoints.Where(x => x.Value == true).ToList();
+            int index = GetIndex();
+            freeSpawnPointsIndex.Remove(index);
+
+            if (IsThisPointFree(spawnPoints[index]))
+            {
+                return spawnPoints[index].transform.position;
+            }
         }
 
-        int randomIndex = Random.Range(0, freeSpawnPoints.Count - 1);
+        Debug.Log(freeSpawnPointsIndex.Count);
+        return spawnPoints[spawnPoints.Length - 1].transform.position;
+    }
 
-        GameObject spawnPoint = freeSpawnPoints[randomIndex].Key;
+    private void SetFreeSpawnPoint()
+    {
+        for (int i = 0; i < spawnPoints.Length - 1; i++)
+        {
+            freeSpawnPointsIndex.Add(i);
+        }
+    }
+    private int GetIndex()
+    {
+        int index = Random.Range(0, freeSpawnPointsIndex.Count);
+        if (freeSpawnPointsIndex.Count>0)
+        {
+            return freeSpawnPointsIndex[index];
+        }
+        else
+            return spawnPoints.Length - 1;
+    }
 
-        dictFreeSpawnPoints[spawnPoint] = false;
-
-        return spawnPoint.transform.position;
+    private bool IsThisPointFree(GameObject spawn)
+    {
+        for (int j = 0; j < playerList.Count; j++)
+        {
+            float distance = Vector3.Distance(spawn.transform.position, playerList[j].transform.position);
+            if (distance < distanceToReactivate)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void FreeAllSpawnPoint()
