@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _dragResistance = 0.8f;
     [SerializeField] private float _stunTimer = 0;
     private float _timeHoldBtn = 0;
+    private float _stayDistance = 1; // The distance in x the player need to stay far from.
 
     private bool _isMoving = false;
     [SerializeField] private bool _isJumpBtnPressed = false;
@@ -41,6 +43,7 @@ public class PlayerController : MonoBehaviour
     private bool _isStun = false;
     [SerializeField] private bool _canDoubleJump = true;
     [SerializeField] private bool _isWatchingRight = false;
+    private bool _lastDirEjection = true;
 
     private void Awake()
     {
@@ -58,17 +61,15 @@ public class PlayerController : MonoBehaviour
         Move();
         Jump();
         Gravity();
+        EjectionCollisionVerification();
         ApplyVelocity();
     }
 
     private void Move()
     {
-        if (!_playerManager.IsAttacking && !_isStun)
+        StayAtDistance();
+        if (!_playerManager.IsAttacking && !_isStun && !_playerManager.IsDefending)
         {
-            if (_isMoving)
-            {
-                _velocity.x += _verticalMovement.x * (_isGrounded ? _moveSpeedGround : _moveSpeedAir);
-            }
             if (_verticalMovement.x > 0)
             {
                 _isWatchingRight = true;
@@ -78,6 +79,54 @@ public class PlayerController : MonoBehaviour
             {
                 _isWatchingRight = false;
                 _transform.rotation = _watchLeft;
+            }
+            if (_isMoving && CollisionVerification())
+            {
+                _velocity.x += _verticalMovement.x * (_isGrounded ? _moveSpeedGround : _moveSpeedAir);
+            }
+        }
+    }
+
+    private void StayAtDistance()
+    {
+        if (Physics.Raycast(_transform.position, Vector3.left, out RaycastHit hitInfo, 1.1f))
+        {
+            if (hitInfo.distance < _stayDistance)
+            {
+                _velocity.x += 1;
+                //_ejectionVector.x = 0;
+            }
+
+        }
+        if (Physics.Raycast(_transform.position, Vector3.right, out RaycastHit hitInf, 1.1f))
+        {
+            if (hitInf.distance < _stayDistance)
+            {
+                _velocity.x += -1;
+                //_ejectionVector.x = 0;
+            }
+        }
+    }
+
+    private bool CollisionVerification()
+    {
+        Debug.DrawRay(_transform.position, _isWatchingRight ? Vector3.right : Vector3.left* 1.1f);
+        if (Physics.Raycast(_transform.position, _isWatchingRight ? Vector3.right : Vector3.left, out RaycastHit hitInfo, 1.1f))
+        {
+            if(hitInfo.distance < 1)
+                _velocity.x +=  -_verticalMovement.x;
+            return false;
+        }
+        return true;
+    }
+
+    private void EjectionCollisionVerification()
+    {
+        if(_ejectionVector.x != 0)
+        {
+            if (Physics.Raycast(_transform.position, _ejectionVector.x > 0 ? Vector3.right : Vector3.left, out RaycastHit hitInfo, 1.1f))
+            {
+                _ejectionVector.x = 0; 
             }
         }
     }
@@ -152,7 +201,9 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyVelocity()
     {
-        _ejectionVector.x *= _dragResistance;
+        _ejectionVector *= _dragResistance;
+        _lastDirEjection = _ejectionVector.x > 0;
+
         _velocity += _ejectionVector;
         _transform.position += _velocity * Time.deltaTime;
         _velocity = Vector3.zero;
@@ -167,7 +218,7 @@ public class PlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
         _isJumpBtnPressed = context.ReadValueAsButton();
-        if ((_isGrounded || _canDoubleJump) && !_playerManager.IsAttacking && !_isStun && _isJumpBtnPressed)
+        if ((_isGrounded || _canDoubleJump) && !_playerManager.IsAttacking && !_isStun && _isJumpBtnPressed && !_playerManager.IsDefending)
         {
             if(!_isGrounded)
             {
@@ -186,21 +237,39 @@ public class PlayerController : MonoBehaviour
 
     public void OnLightAttack(InputAction.CallbackContext context) 
     {
-        if(!_isStun) 
+        if(!_isStun && !_playerManager.IsDefending) 
             _playerManager.ActiveLightAttack();
     }
 
     public void OnPowerfulAttack(InputAction.CallbackContext context)
     {
-        if (!_isStun)
+        if (!_isStun && !_playerManager.IsDefending)
             _playerManager.ActivePowerfulAttack();
     }
 
     public void OnProtect(InputAction.CallbackContext context)
     {
+        if(!_playerManager.IsAttacking && !_isStun)
+        {
         _playerManager.SetDefending(context.ReadValueAsButton());
         _shieldManager.SetDefending(context.ReadValueAsButton());
+        }
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject != null)
+        {
+            _isMoving = false;
+            _ejectionVector.x = 0;
+            _velocity.x = 0;
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        _velocity.x += _lastDirEjection ? -2f : 2f;
     }
 
     public Vector3 SetEjectionVector { set => _ejectionVector = value; }

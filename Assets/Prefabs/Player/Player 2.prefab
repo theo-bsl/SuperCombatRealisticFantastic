@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2576016850492861019}
   - component: {fileID: 3011384905834913368}
   - component: {fileID: 4029736555811580504}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 7328678340336837339}
   - component: {fileID: 6988460583169173080}
   - component: {fileID: 8861500077979667552}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 8342877650936189879}
   - component: {fileID: 616884079591730021}
   - component: {fileID: 178541335779553525}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PowerfulAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -403,7 +403,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2588370157170309157}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -438,7 +438,7 @@ GameObject:
   - component: {fileID: 6844930423620346130}
   - component: {fileID: 6812833728082665720}
   - component: {fileID: 3054903148460845397}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -521,7 +521,7 @@ GameObject:
   - component: {fileID: 1711792639596301361}
   - component: {fileID: 3174375195793784182}
   - component: {fileID: 1320009002364448462}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -606,7 +606,7 @@ GameObject:
   - component: {fileID: 6215097486746482398}
   - component: {fileID: 4281606026994899766}
   - component: {fileID: 8545502205337498736}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -689,7 +689,7 @@ GameObject:
   - component: {fileID: 4977432079752615474}
   - component: {fileID: 7985449826421273016}
   - component: {fileID: 3271557711565640639}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -770,7 +770,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3501838705774426387}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Legs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -803,7 +803,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3245561494639908733}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -841,7 +841,7 @@ GameObject:
   - component: {fileID: 6694858742953252725}
   - component: {fileID: 8699085726606909216}
   - component: {fileID: 8517543390971022106}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LightAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -962,7 +962,7 @@ GameObject:
   - component: {fileID: 8829684845846010526}
   - component: {fileID: 2239632306833092356}
   - component: {fileID: 4342513366713618458}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1049,7 +1049,7 @@ GameObject:
   - component: {fileID: 6273366694533612173}
   - component: {fileID: 1323279470168077894}
   - component: {fileID: 7414719083151885261}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1310,8 +1310,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.51427364, y: 2.5178952, z: 1}
-  m_Center: {x: 0, y: 0.27322102, z: 0}
+  m_Size: {x: 0.51427364, y: 2.3986087, z: 1}
+  m_Center: {x: 0, y: 0.33286425, z: 0}
 --- !u!114 &6273366694533612173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1336,12 +1336,13 @@ MonoBehaviour:
   _velocityMultiplicator: 0.8
   _gravityScale: 5
   _gravity: 0
+  _maxGravity: 20
   _gravityMultiplicator: 1.05
   _moveSpeedGround: 10
   _moveSpeedAir: 7.5
   _jumpSpeed: 5
   _maxHoldJumpBtn: 0.2
-  _dragResistance: 1
+  _dragResistance: 0.99
   _stunTimer: 0
   _isJumpBtnPressed: 0
   _isGrounded: 0
