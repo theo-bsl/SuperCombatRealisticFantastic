@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void Update()
+    private void FixedUpdate()
     {
         IsGrounded();
         Stun();
@@ -261,8 +261,8 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject != null)
         {
-            _isMoving = false;
-            _ejectionVector.x = 0;
+            //_isMoving = false;
+            //_ejectionVector.x = 0;
             _velocity.x = 0;
         }
     }

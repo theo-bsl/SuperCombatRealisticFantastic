@@ -1,3 +1,5 @@
+using Palmmedia.ReportGenerator.Core.Reporting.Builders;
+using System;
 using UnityEngine;
 
 public class PlayerManagement : MonoBehaviour
@@ -10,6 +12,7 @@ public class PlayerManagement : MonoBehaviour
     [SerializeField] private float _life = 0;
     [SerializeField] private float _maxLife = 100;
     [SerializeField] private int _nbLife = 3;
+    [SerializeField] private int _maxNbLife = 3;
 
     private float _waitToRegainStamina = 2;
     private float _waitCounter = 0;
@@ -91,8 +94,52 @@ public class PlayerManagement : MonoBehaviour
     public void TakeDamage(float damage)
     {
         _life -= damage;
+        CheckLife();
     }
 
+    private void CheckLife()
+    {
+        if (_life <= 0)
+        {
+            Death();
+        }
+    }
+
+    public void ResetLife()
+    {
+        _nbLife -= 1;
+        if (_nbLife > 0)
+            _life = _maxLife;
+    }
+
+    public void Death()
+    {
+        ResetLife();
+
+        if (_nbLife > 0)
+        {
+            transform.position = SpawnPointManager.Instance.GetSpawnPoint();
+        }
+        else
+        {
+            _life = _life < 0 ? 0 : _life;
+            gameObject.SetActive(false);
+            GameManager.Instance.RemovePlayer(gameObject);
+        }
+    }
+
+    public float GetLife()
+    {
+        return _life;
+    }
+
+    public float GetMaxLife()
+    { return _maxLife; }
+
+    public int GetMaxNbLife()
+    { return _maxNbLife; }
+
+    public int NbLife { get => _nbLife; set => _nbLife = value; }
     public bool IsAttacking { get => _isAttacking; set => _isAttacking = value; }
     
     public int NbLife { get => _nbLife; set => _nbLife = value; }

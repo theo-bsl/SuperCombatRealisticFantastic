@@ -20,17 +20,7 @@ public class DeathZone : MonoBehaviour
             {
                 PlayerManagement playerManagement = playerList[i].GetComponent<PlayerManagement>();
 
-                if (playerManagement.NbLife > 0)
-                {
-                    playerManagement.NbLife -= 1;
-
-                    playerList[i].transform.position = SpawnPointManager.Instance.GetSpawnPoint();
-                }
-                else
-                {
-                    playerList[i].SetActive(false);
-                    GameManager.Instance.RemovePlayer(playerList[i]);
-                }
+                playerManagement.Death();
             }
         }
     }

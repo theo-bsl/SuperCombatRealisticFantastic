@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public int nbPlayer = 2;
     public List<GameObject> PlayerList;
 
+    public GameObject VictoryMenu;
+    
     private void Awake()
     {
         Instance = this;
@@ -21,14 +23,9 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerList.Count == 1)
+        if (CheckActifPlayer() == 1)
         {
             GameOver();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SceneManager.LoadScene("GameScene");
         }
     }
 
@@ -41,11 +38,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private int CheckActifPlayer()
+    {
+        int nbActifPlayer = nbPlayer;
+
+        for (int i = 0;i < nbPlayer; i++)
+        {
+            if (!PlayerList[i].activeSelf)
+            {
+                nbActifPlayer -= 1;
+            }
+        }
+
+        return nbActifPlayer;
+    }
+    
     public void RemovePlayer(GameObject player)
     { PlayerList.Remove(player); }
 
     private void GameOver()
     {
-
+        Time.timeScale = 0;
+        VictoryMenu.SetActive(true);
     }
 }
