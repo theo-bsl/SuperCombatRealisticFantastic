@@ -51,23 +51,26 @@ public class PowerfulAttack : Attack
     {
         if (other.gameObject.TryGetComponent<PlayerManagement>(out PlayerManagement manager) && !_alreadyKick.Contains(other.gameObject) && _canMakeDamage)
         {
-            _alreadyKick.Add(other.gameObject);
-            manager.TakeDamage(_damage);
-            PlayerController _playerController = gameObject.GetComponentInParent<PlayerController>();
-            PlayerController _targetController = manager.gameObject.GetComponentInParent<PlayerController>();
-            if (_playerController.GetWatchingDir)
+            if (!manager.IsDefending)
             {
-                Debug.Log("right");
-                _ejectionVector.x = Mathf.Abs(_ejectionVector.x);
-                _targetController.SetEjectionVector = _ejectionVector;
+                _alreadyKick.Add(other.gameObject);
+                manager.TakeDamage(_damage);
+                PlayerController _playerController = gameObject.GetComponentInParent<PlayerController>();
+                PlayerController _targetController = manager.gameObject.GetComponentInParent<PlayerController>();
+                if (_playerController.GetWatchingDir)
+                {
+                    Debug.Log("right");
+                    _ejectionVector.x = Mathf.Abs(_ejectionVector.x);
+                    _targetController.SetEjectionVector = _ejectionVector;
+                }
+                else
+                {
+                    Debug.Log("left");
+                    _ejectionVector.x = -Mathf.Abs(_ejectionVector.x);
+                    _targetController.SetEjectionVector = _ejectionVector;
+                }
+                _targetController.SetStunTime = Time.time + _stunTime;
             }
-            else 
-            {
-                Debug.Log("left");
-                _ejectionVector.x = - Mathf.Abs(_ejectionVector.x);
-                _targetController.SetEjectionVector = _ejectionVector;
-            }
-            _targetController.SetStunTime = Time.time + _stunTime;
         }
 
     }
