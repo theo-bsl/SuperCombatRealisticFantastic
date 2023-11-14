@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 8342877650936189879}
   - component: {fileID: 616884079591730021}
   - component: {fileID: 178541335779553525}
-  m_Layer: 3
+  m_Layer: 2
   m_Name: PowerfulAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -841,7 +841,7 @@ GameObject:
   - component: {fileID: 6694858742953252725}
   - component: {fileID: 8699085726606909216}
   - component: {fileID: 8517543390971022106}
-  m_Layer: 3
+  m_Layer: 2
   m_Name: LightAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1337,7 +1337,7 @@ MonoBehaviour:
   _gravityScale: 5
   _gravity: 0
   _maxGravity: 20
-  _gravityMultiplicator: 1.05
+  _gravityMultiplicator: 1.02
   _moveSpeedGround: 10
   _moveSpeedAir: 7.5
   _jumpSpeed: 5
@@ -1365,6 +1365,8 @@ MonoBehaviour:
   - {fileID: 2568686895948660244}
   _life: 0
   _maxLife: 100
+  _nbLife: 3
+  _maxNbLife: 3
 --- !u!114 &7414719083151885261
 MonoBehaviour:
   m_ObjectHideFlags: 0

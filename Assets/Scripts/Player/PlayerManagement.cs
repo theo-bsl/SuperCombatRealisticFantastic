@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerManagement : MonoBehaviour
@@ -9,6 +10,8 @@ public class PlayerManagement : MonoBehaviour
 
     [SerializeField] private float _life = 0;
     [SerializeField] private float _maxLife = 100;
+    [SerializeField] private int _nbLife = 3;
+    [SerializeField] private int _maxNbLife = 3;
 
     private float _waitToRegainStamina = 2;
     private float _waitCounter = 0;
@@ -90,6 +93,18 @@ public class PlayerManagement : MonoBehaviour
         _life -= damage;
     }
 
+    public float GetLife()
+    {
+        return _life;
+    }
+
+    public float GetMaxLife()
+    { return _maxLife; }
+
+    public int GetMaxNbLife()
+    { return _maxNbLife; }
+
+    public int NbLife { get => _nbLife; set => _nbLife = value; }
     public bool IsAttacking { get => _isAttacking; set => _isAttacking = value; }
     public bool IsDefending { get => _stamina > 0 ? _isDefending : false;}
 }
