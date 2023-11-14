@@ -71,6 +71,8 @@ public class PlayerManagement : MonoBehaviour
     public float GetMaxStamina()
     { return _maxStamina; }
 
+
+
     public void ActiveLightAttack()
     {
         if(!_isAttacking)
@@ -139,5 +141,9 @@ public class PlayerManagement : MonoBehaviour
 
     public int NbLife { get => _nbLife; set => _nbLife = value; }
     public bool IsAttacking { get => _isAttacking; set => _isAttacking = value; }
+    
+    public int NbLife { get => _nbLife; set => _nbLife = value; }
+    
     public bool IsDefending { get => _stamina > 0 ? _isDefending : false;}
+    
 }

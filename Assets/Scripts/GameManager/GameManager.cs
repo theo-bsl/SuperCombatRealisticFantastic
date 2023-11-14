@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> PlayerList;
 
     public GameObject VictoryMenu;
-
+    
     private void Awake()
     {
         Instance = this;
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
 
         return nbActifPlayer;
     }
-
+    
     public void RemovePlayer(GameObject player)
     { PlayerList.Remove(player); }
 
