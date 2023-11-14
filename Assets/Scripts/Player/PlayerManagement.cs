@@ -1,3 +1,4 @@
+using Palmmedia.ReportGenerator.Core.Reporting.Builders;
 using System;
 using UnityEngine;
 
@@ -91,6 +92,38 @@ public class PlayerManagement : MonoBehaviour
     public void TakeDamage(float damage)
     {
         _life -= damage;
+        CheckLife();
+    }
+
+    private void CheckLife()
+    {
+        if (_life <= 0)
+        {
+            Death();
+        }
+    }
+
+    public void ResetLife()
+    {
+        _nbLife -= 1;
+        if (_nbLife > 0)
+            _life = _maxLife;
+    }
+
+    public void Death()
+    {
+        ResetLife();
+
+        if (_nbLife > 0)
+        {
+            transform.position = SpawnPointManager.Instance.GetSpawnPoint();
+        }
+        else
+        {
+            _life = _life < 0 ? 0 : _life;
+            gameObject.SetActive(false);
+            GameManager.Instance.RemovePlayer(gameObject);
+        }
     }
 
     public float GetLife()
