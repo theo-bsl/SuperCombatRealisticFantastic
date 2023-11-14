@@ -52,8 +52,11 @@ public class LightAttack : Attack
     {
         if(other.gameObject.TryGetComponent<PlayerManagement>(out PlayerManagement manager) && !_alreadyKick.Contains(other.gameObject) && _canMakeDamage)
         {
+            if(!manager.IsDefending)
+            {
             _alreadyKick.Add(other.gameObject);
             manager.TakeDamage(_damage);
+            }
         }
 
     }

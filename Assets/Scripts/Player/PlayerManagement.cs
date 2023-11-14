@@ -91,4 +91,5 @@ public class PlayerManagement : MonoBehaviour
     }
 
     public bool IsAttacking { get => _isAttacking; set => _isAttacking = value; }
+    public bool IsDefending { get => _stamina > 0 ? _isDefending : false;}
 }

@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         StayAtDistance();
-        if (!_playerManager.IsAttacking && !_isStun)
+        if (!_playerManager.IsAttacking && !_isStun && !_playerManager.IsDefending)
         {
             if (_verticalMovement.x > 0)
             {
@@ -218,7 +218,7 @@ public class PlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
         _isJumpBtnPressed = context.ReadValueAsButton();
-        if ((_isGrounded || _canDoubleJump) && !_playerManager.IsAttacking && !_isStun && _isJumpBtnPressed)
+        if ((_isGrounded || _canDoubleJump) && !_playerManager.IsAttacking && !_isStun && _isJumpBtnPressed && !_playerManager.IsDefending)
         {
             if(!_isGrounded)
             {
@@ -237,20 +237,23 @@ public class PlayerController : MonoBehaviour
 
     public void OnLightAttack(InputAction.CallbackContext context) 
     {
-        if(!_isStun) 
+        if(!_isStun && !_playerManager.IsDefending) 
             _playerManager.ActiveLightAttack();
     }
 
     public void OnPowerfulAttack(InputAction.CallbackContext context)
     {
-        if (!_isStun)
+        if (!_isStun && !_playerManager.IsDefending)
             _playerManager.ActivePowerfulAttack();
     }
 
     public void OnProtect(InputAction.CallbackContext context)
     {
+        if(!_playerManager.IsAttacking && !_isStun)
+        {
         _playerManager.SetDefending(context.ReadValueAsButton());
         _shieldManager.SetDefending(context.ReadValueAsButton());
+        }
 
     }
 
