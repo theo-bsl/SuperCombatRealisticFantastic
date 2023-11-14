@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     {
         int nbActifPlayer = nbPlayer;
 
-        for (int i = 0;i < nbPlayer; i++)
+        for (int i = 0; i < nbPlayer; i++)
         {
             if (!PlayerList[i].activeSelf)
             {
