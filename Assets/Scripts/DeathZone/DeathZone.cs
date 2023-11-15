@@ -20,9 +20,8 @@ public class DeathZone : MonoBehaviour
             {
                 if (playerList[i].transform.position.y < deathZoneLimitStart)
                 {
-                    PlayerManagement playerManagement = playerList[i].GetComponent<PlayerManagement>();
-
-                    playerManagement.Death();
+                    playerList[i].GetComponent<PlayerManagement>().Death();
+                    playerList[i].GetComponent<PlayerController>().Death();
                 }
             }
         }

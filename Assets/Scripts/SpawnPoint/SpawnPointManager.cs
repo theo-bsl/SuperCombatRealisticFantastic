@@ -22,10 +22,7 @@ public class SpawnPointManager : MonoBehaviour
         {
             dictFreeSpawnPoints.Add(spawnPoints[i], true);
         }
-    }
 
-    private void Start()
-    {
         playerList = GameManager.Instance.PlayerList;
     }
 
@@ -59,7 +56,7 @@ public class SpawnPointManager : MonoBehaviour
     private int GetIndex()
     {
         int index = Random.Range(0, freeSpawnPointsIndex.Count);
-        if (freeSpawnPointsIndex.Count>0)
+        if (freeSpawnPointsIndex.Count > 0)
         {
             return freeSpawnPointsIndex[index];
         }

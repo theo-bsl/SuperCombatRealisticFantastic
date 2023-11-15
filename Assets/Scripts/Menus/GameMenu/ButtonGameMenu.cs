@@ -7,16 +7,19 @@ public class ButtonGameMenu : MonoBehaviour
 
     public void ButtonResume()
     {
+        Time.timeScale = 1.0f;
         pauseMenu.SetActive(false);
     }
 
     public void ButtonRetry()
     {
-        SceneManager.LoadScene("GameScene");
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void ButtonExit()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene("MainMenu");
     }
 

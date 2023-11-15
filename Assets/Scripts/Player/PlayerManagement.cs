@@ -1,5 +1,3 @@
-using Palmmedia.ReportGenerator.Core.Reporting.Builders;
-using System;
 using UnityEngine;
 
 public class PlayerManagement : MonoBehaviour
@@ -27,7 +25,10 @@ public class PlayerManagement : MonoBehaviour
 
     private void Update()
     {
-        StaminaManagement();
+        if (!GameManager.Instance.IsPaused)
+        {
+            StaminaManagement();
+        }
     }
 
     private void StaminaManagement()

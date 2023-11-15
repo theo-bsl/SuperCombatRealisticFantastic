@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 
 //[RequireComponent(typeof(Pla))]
@@ -45,6 +46,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool _isWatchingRight = false;
     private bool _lastDirEjection = true;
 
+    private bool _isClickOnDefending = false;
+    private bool _isInPause = false;
+
     private void Awake()
     {
         //rb = GetComponent<Rigidbody>();
@@ -56,13 +60,18 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        IsGrounded();
-        Stun();
-        Move();
-        Jump();
-        Gravity();
-        EjectionCollisionVerification();
-        ApplyVelocity();
+        if (!GameManager.Instance.IsPaused)
+        {
+            IsGrounded();
+            Stun();
+            Move();
+            Jump();
+            Gravity();
+            EjectionCollisionVerification();
+            ApplyVelocity();
+        }
+
+        ProtectionStopPause();
     }
 
     private void Move()
@@ -217,7 +226,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        _isJumpBtnPressed = context.ReadValueAsButton();
+        _isJumpBtnPressed = context.ReadValueAsButton() && !GameManager.Instance.IsPaused;
         if ((_isGrounded || _canDoubleJump) && !_playerManager.IsAttacking && !_isStun && _isJumpBtnPressed && !_playerManager.IsDefending)
         {
             if(!_isGrounded)
@@ -237,24 +246,29 @@ public class PlayerController : MonoBehaviour
 
     public void OnLightAttack(InputAction.CallbackContext context) 
     {
-        if(!_isStun && !_playerManager.IsDefending) 
+        if(!_isStun && !_playerManager.IsDefending &&!GameManager.Instance.IsPaused) 
             _playerManager.ActiveLightAttack();
     }
 
     public void OnPowerfulAttack(InputAction.CallbackContext context)
     {
-        if (!_isStun && !_playerManager.IsDefending)
+        if (!_isStun && !_playerManager.IsDefending && !GameManager.Instance.IsPaused)
             _playerManager.ActivePowerfulAttack();
     }
 
     public void OnProtect(InputAction.CallbackContext context)
     {
-        if(!_playerManager.IsAttacking && !_isStun)
-        {
-        _playerManager.SetDefending(context.ReadValueAsButton());
-        _shieldManager.SetDefending(context.ReadValueAsButton());
-        }
+        _isClickOnDefending = context.ReadValueAsButton();
 
+        if(!_playerManager.IsAttacking && !_isStun && !GameManager.Instance.IsPaused)
+        {
+            _playerManager.SetDefending(_isClickOnDefending);
+            _shieldManager.SetDefending(_isClickOnDefending);
+        }
+        else if (GameManager.Instance.IsPaused)
+        {
+            _isInPause = true;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -271,6 +285,24 @@ public class PlayerController : MonoBehaviour
     {
         _velocity.x += _lastDirEjection ? -2f : 2f;
     }
+
+    private void ProtectionStopPause()
+    {
+        if (_isInPause && !GameManager.Instance.IsPaused)
+        {
+            _playerManager.SetDefending(_isClickOnDefending);
+            _shieldManager.SetDefending(_isClickOnDefending);
+            _isInPause = false;
+        }
+    }
+
+    public void Death()
+    {
+        _ejectionVector = Vector3.zero;
+        _velocity = Vector3.zero;
+    }
+
+    
 
     public Vector3 SetEjectionVector { set => _ejectionVector = value; }
     public bool GetWatchingDir { get => _isWatchingRight; }
