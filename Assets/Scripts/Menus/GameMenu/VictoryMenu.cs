@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class VictoryMenu : MonoBehaviour
@@ -6,6 +7,7 @@ public class VictoryMenu : MonoBehaviour
     private List<GameObject> playerList = new List<GameObject>();
 
     public List<GameObject> playerFaceList;
+    public TextMeshProUGUI winnerName;
 
     private void Awake()
     {
@@ -22,6 +24,7 @@ public class VictoryMenu : MonoBehaviour
         int index = GetActifPlayerIndex();
 
         playerFaceList[index].SetActive(true);
+        winnerName.text = playerFaceList[index].name;
     }
 
     private int GetActifPlayerIndex()

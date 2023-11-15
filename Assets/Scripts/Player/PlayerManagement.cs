@@ -120,6 +120,7 @@ public class PlayerManagement : MonoBehaviour
         if (_nbLife > 0)
         {
             transform.position = SpawnPointManager.Instance.GetSpawnPoint();
+            GetComponent<PlayerController>().Death();
         }
         else
         {

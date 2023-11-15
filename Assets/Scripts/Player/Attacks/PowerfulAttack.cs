@@ -54,7 +54,6 @@ public class PowerfulAttack : Attack
             if (!manager.IsDefending)
             {
                 _alreadyKick.Add(other.gameObject);
-                manager.TakeDamage(_damage);
                 PlayerController _playerController = gameObject.GetComponentInParent<PlayerController>();
                 PlayerController _targetController = manager.gameObject.GetComponentInParent<PlayerController>();
                 if (_playerController.GetWatchingDir)
@@ -70,6 +69,7 @@ public class PowerfulAttack : Attack
                     _targetController.SetEjectionVector = _ejectionVector;
                 }
                 _targetController.SetStunTime = Time.time + _stunTime;
+                manager.TakeDamage(_damage);
             }
         }
 
