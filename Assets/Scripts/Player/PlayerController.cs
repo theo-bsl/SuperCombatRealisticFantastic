@@ -299,6 +299,7 @@ public class PlayerController : MonoBehaviour
     {
         _ejectionVector = Vector3.zero;
         _velocity = Vector3.zero;
+        _stunTimer = 0;
     }
 
     
