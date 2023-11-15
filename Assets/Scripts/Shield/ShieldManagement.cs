@@ -54,7 +54,7 @@ public class ShieldManagement : MonoBehaviour
 
     private void SetActive()
     {
-        _shield.SetActive(_isDefending && _playerStamina > 0);
+        _shield.SetActive(_isDefending && _playerStamina > 0 );
     }
 
     public void SetDefending(bool defending)

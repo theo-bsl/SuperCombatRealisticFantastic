@@ -16,11 +16,13 @@ public class DeathZone : MonoBehaviour
     {
         for (int i = 0; i < playerList.Count; i++)
         {
-            if (playerList[i].transform.position.y < deathZoneLimitStart)
+            if (playerList[i].activeSelf)
             {
-                PlayerManagement playerManagement = playerList[i].GetComponent<PlayerManagement>();
-
-                playerManagement.Death();
+                if (playerList[i].transform.position.y < deathZoneLimitStart)
+                {
+                    playerList[i].GetComponent<PlayerManagement>().Death();
+                    playerList[i].GetComponent<PlayerController>().Death();
+                }
             }
         }
     }

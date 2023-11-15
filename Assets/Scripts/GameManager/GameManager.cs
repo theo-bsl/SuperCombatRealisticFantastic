@@ -1,19 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public bool IsPaused = false;
+
     public int nbPlayer = 2;
     public List<GameObject> PlayerList;
 
     public GameObject VictoryMenu;
+    public bool isGameOver = false;
     
     private void Awake()
     {
-        Instance = this;
+        if(Instance== null)
+            Instance = this;
     }
 
     private void Start()
@@ -23,10 +26,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (CheckActifPlayer() == 1)
+        if (CheckActifPlayer() == 1 && !isGameOver)
         {
             GameOver();
         }
+
+        IsPaused = Time.timeScale == 1 ? false : true;
     }
 
     private void SpawnPlayer()
@@ -42,7 +47,7 @@ public class GameManager : MonoBehaviour
     {
         int nbActifPlayer = nbPlayer;
 
-        for (int i = 0;i < nbPlayer; i++)
+        for (int i = 0; i < nbPlayer; i++)
         {
             if (!PlayerList[i].activeSelf)
             {
@@ -59,6 +64,7 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         Time.timeScale = 0;
+        isGameOver = true;
         VictoryMenu.SetActive(true);
     }
 }
