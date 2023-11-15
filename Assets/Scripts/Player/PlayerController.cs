@@ -245,13 +245,13 @@ public class PlayerController : MonoBehaviour
 
     public void OnLightAttack(InputAction.CallbackContext context) 
     {
-        if(!_isStun && !_playerManager.IsDefending &&!GameManager.Instance.IsPaused) 
+        if(!_isStun && !_playerManager.IsDefending &&!GameManager.Instance.IsPaused && context.ReadValueAsButton()) 
             _playerManager.ActiveLightAttack();
     }
 
     public void OnPowerfulAttack(InputAction.CallbackContext context)
     {
-        if (!_isStun && !_playerManager.IsDefending && !GameManager.Instance.IsPaused)
+        if (!_isStun && !_playerManager.IsDefending && !GameManager.Instance.IsPaused && context.ReadValueAsButton())
             _playerManager.ActivePowerfulAttack();
     }
 
