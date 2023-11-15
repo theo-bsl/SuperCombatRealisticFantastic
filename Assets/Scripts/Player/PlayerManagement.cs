@@ -117,6 +117,8 @@ public class PlayerManagement : MonoBehaviour
     {
         ResetLife();
 
+        _stamina = _maxStamina;
+
         if (_nbLife > 0)
         {
             transform.position = SpawnPointManager.Instance.GetSpawnPoint();
