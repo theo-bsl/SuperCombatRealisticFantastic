@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private ShieldManagement _shieldManager;
 
     public LayerMask _groundLayerMask;
+    public LayerMask _collisionMask; 
 
     private Vector2 _verticalMovement  = Vector2.zero;
     [SerializeField] private Vector3 _ejectionVector = Vector3.zero;
@@ -98,7 +99,7 @@ public class PlayerController : MonoBehaviour
 
     private void StayAtDistance()
     {
-        if (Physics.Raycast(_transform.position, Vector3.left, out RaycastHit hitInfo, 1.1f))
+        if (Physics.Raycast(_transform.position, Vector3.left, out RaycastHit hitInfo, 1.1f, _collisionMask))
         {
             if (hitInfo.distance < _stayDistance)
             {
@@ -107,7 +108,7 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        if (Physics.Raycast(_transform.position, Vector3.right, out RaycastHit hitInf, 1.1f))
+        if (Physics.Raycast(_transform.position, Vector3.right, out RaycastHit hitInf, 1.1f, _collisionMask))
         {
             if (hitInf.distance < _stayDistance)
             {
@@ -120,7 +121,7 @@ public class PlayerController : MonoBehaviour
     private bool CollisionVerification()
     {
         Debug.DrawRay(_transform.position, _isWatchingRight ? Vector3.right : Vector3.left* 1.1f);
-        if (Physics.Raycast(_transform.position, _isWatchingRight ? Vector3.right : Vector3.left, out RaycastHit hitInfo, 1.1f))
+        if (Physics.Raycast(_transform.position, _isWatchingRight ? Vector3.right : Vector3.left, out RaycastHit hitInfo, 1.1f, _collisionMask))
         {
             if(hitInfo.distance < 1)
                 _velocity.x +=  -_verticalMovement.x;
@@ -133,7 +134,7 @@ public class PlayerController : MonoBehaviour
     {
         if(_ejectionVector.x != 0)
         {
-            if (Physics.Raycast(_transform.position, _ejectionVector.x > 0 ? Vector3.right : Vector3.left, out RaycastHit hitInfo, 1.1f))
+            if (Physics.Raycast(_transform.position, _ejectionVector.x > 0 ? Vector3.right : Vector3.left, out RaycastHit hitInfo, 1.1f, _collisionMask))
             {
                 _ejectionVector.x = 0; 
             }

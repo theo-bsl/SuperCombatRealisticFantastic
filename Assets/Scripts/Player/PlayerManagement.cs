@@ -123,7 +123,7 @@ public class PlayerManagement : MonoBehaviour
         }
         else
         {
-            _life = _life < 0 ? 0 : _life;
+            _life = 0;
             gameObject.SetActive(false);
         }
     }
