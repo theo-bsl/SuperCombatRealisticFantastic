@@ -52,11 +52,13 @@ public class LightAttack : Attack
     {
         if(other.gameObject.TryGetComponent<PlayerManagement>(out PlayerManagement manager) && !_alreadyKick.Contains(other.gameObject) && _canMakeDamage)
         {
-            if(!manager.IsDefending)
+            PlayerController _targetController = manager.gameObject.GetComponentInParent<PlayerController>();
+            if (!manager.IsDefending)
             {
-            _alreadyKick.Add(other.gameObject);
-            manager.TakeDamage(_damage);
+                _alreadyKick.Add(other.gameObject);
+                manager.TakeDamage(_damage);
             }
+            _targetController.SetStunTime = Time.time + _stunTime;
         }
 
     }
