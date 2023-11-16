@@ -56,9 +56,10 @@ public class LightAttack : Attack
             if (!manager.IsDefending)
             {
                 _alreadyKick.Add(other.gameObject);
+                _targetController.SetStunTime = Time.time + _stunTime;
                 manager.TakeDamage(_damage);
             }
-            _targetController.SetStunTime = Time.time + _stunTime;
+
         }
 
     }

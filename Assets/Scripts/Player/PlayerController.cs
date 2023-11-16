@@ -33,20 +33,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _maxHoldJumpBtn = .5f;
     [SerializeField] private float _dragResistance = 0.8f;
     [SerializeField] private float _stunTimer = 0;
-    private float _timeHoldBtn = 0;
-    private float _stayDistance = 1; // The distance in x the player need to stay far from.
+    [SerializeField] private float _timeHoldBtn = 0;
+    [SerializeField] private float _stayDistance = 1; // The distance in x the player need to stay far from.
 
-    private bool _isMoving = false;
+    [SerializeField] private bool _isMoving = false;
     [SerializeField] private bool _isJumpBtnPressed = false;
     [SerializeField] private bool _isGrounded = false;
     private bool _ejectionCanBeReset = false;
-    private bool _isStun = false;
+    [SerializeField] bool _isStun = false;
     [SerializeField] private bool _canDoubleJump = true;
     [SerializeField] private bool _isWatchingRight = false;
     private bool _lastDirEjection = true;
 
-    private bool _isClickOnDefending = false;
-    private bool _isInPause = false;
+    [SerializeField] private bool _isClickOnDefending = false;
+    [SerializeField] private bool _isInPause = false;
 
     private void Awake()
     {
@@ -300,6 +300,7 @@ public class PlayerController : MonoBehaviour
         _ejectionVector = Vector3.zero;
         _velocity = Vector3.zero;
         _stunTimer = 0;
+        _isStun = false;
     }
 
     
