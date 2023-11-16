@@ -1325,10 +1325,16 @@ MonoBehaviour:
   _maxHoldJumpBtn: 0.2
   _dragResistance: 0.99
   _stunTimer: 0
+  _timeHoldBtn: 0
+  _stayDistance: 1
+  _isMoving: 0
   _isJumpBtnPressed: 0
   _isGrounded: 0
+  _isStun: 0
   _canDoubleJump: 1
   _isWatchingRight: 0
+  _isClickOnDefending: 0
+  _isInPause: 0
 --- !u!114 &1323279470168077894
 MonoBehaviour:
   m_ObjectHideFlags: 0
