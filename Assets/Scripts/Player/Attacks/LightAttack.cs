@@ -7,16 +7,16 @@ public class LightAttack : Attack
     protected override void Awake()
     {
         base.Awake();
-        _damage = 35;
-        _timeAttack = 0.05f;
-        _preparationTime = .05f;
+        _damage = 10;
+        _timeAttack = 0.4f;
+        _preparationTime = 0.05f;
         _recuperationTime = .1f;
-        _stunTime = 2;
+        _stunTime = 1;
     }
 
     private void OnEnable()
     {
-        _spriteRenderer.color = Color.white;
+        //_spriteRenderer.color = Color.white;
         _currentState = State.Preparation;
         _time = Time.time + _preparationTime;
         _alreadyKick.Clear();
@@ -32,15 +32,15 @@ public class LightAttack : Attack
                 switch (_currentState)
                 {
                     case State.Preparation:
-                        _currentState = State.Attack; _time = Time.time + _timeAttack; _canMakeDamage = true; _spriteRenderer.color = Color.red;
+                        _currentState = State.Attack; _time = Time.time + _timeAttack; _canMakeDamage = true; /*_spriteRenderer.color = Color.red;*/
                         break;
 
                     case State.Attack:
-                        _currentState = State.Recuperation; _time = Time.time + _recuperationTime; _canMakeDamage = false; _spriteRenderer.color = Color.black;
+                        _currentState = State.Recuperation; _time = Time.time + _recuperationTime; _canMakeDamage = false; /*_spriteRenderer.color = Color.black;*/
                         break;
 
                     case State.Recuperation:
-                        gameObject.SetActive(false); _spriteRenderer.color = Color.yellow; _playerManagement.IsAttacking = false;
+                        gameObject.SetActive(false);/* _spriteRenderer.color = Color.yellow;*/ _playerManagement.IsAttacking = false;
                         break;
                 }
             }

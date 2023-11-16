@@ -8,14 +8,14 @@ public class PowerfulAttack : Attack
     {
         base.Awake();
         _damage = 35;
-        _timeAttack = 0.1f;
-        _preparationTime = .1f;
+        _timeAttack = 0.3f;
+        _preparationTime = .2f;
         _recuperationTime = .2f;
         _stunTime = 2;
     }
     private void OnEnable()
     {
-        _spriteRenderer.color = Color.white;
+        //_spriteRenderer.color = Color.white;
         _currentState = State.Preparation;
         _time = Time.time + _preparationTime;
         _alreadyKick.Clear();
@@ -31,15 +31,15 @@ public class PowerfulAttack : Attack
                 switch (_currentState)
                 {
                     case State.Preparation:
-                        _currentState = State.Attack; _time = Time.time + _timeAttack; _canMakeDamage = true; _spriteRenderer.color = Color.red;
+                        _currentState = State.Attack; _time = Time.time + _timeAttack; _canMakeDamage = true; /*_spriteRenderer.color = Color.red;*/
                         break;
 
                     case State.Attack:
-                        _currentState = State.Recuperation; _time = Time.time + _recuperationTime; _canMakeDamage = false; _spriteRenderer.color = Color.black;
+                        _currentState = State.Recuperation; _time = Time.time + _recuperationTime; _canMakeDamage = false; /*_spriteRenderer.color = Color.black;*/
                         break;
 
                     case State.Recuperation:
-                        gameObject.SetActive(false); _spriteRenderer.color = Color.yellow; _playerManagement.IsAttacking = false;
+                        gameObject.SetActive(false); /*_spriteRenderer.color = Color.yellow;*/ _playerManagement.IsAttacking = false;
                         break;
                 }
             }
