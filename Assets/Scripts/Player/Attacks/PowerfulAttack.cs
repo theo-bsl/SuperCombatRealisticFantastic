@@ -43,7 +43,7 @@ public class PowerfulAttack : Attack
                         break;
                 }
             }
-            Debug.Log("avsjgv");
+            //Debug.Log("avsjgv");
             yield return null;
         }
     }
@@ -58,13 +58,13 @@ public class PowerfulAttack : Attack
                 PlayerController _targetController = manager.gameObject.GetComponentInParent<PlayerController>();
                 if (_playerController.GetWatchingDir)
                 {
-                    Debug.Log("right");
+                    //Debug.Log("right");
                     _ejectionVector.x = Mathf.Abs(_ejectionVector.x);
                     _targetController.SetEjectionVector = _ejectionVector;
                 }
                 else
                 {
-                    Debug.Log("left");
+                    //Debug.Log("left");
                     _ejectionVector.x = -Mathf.Abs(_ejectionVector.x);
                     _targetController.SetEjectionVector = _ejectionVector;
                 }

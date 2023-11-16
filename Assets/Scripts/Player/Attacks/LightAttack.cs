@@ -44,7 +44,7 @@ public class LightAttack : Attack
                         break;
                 }
             }
-            Debug.Log("avsjgv");
+            //Debug.Log("avsjgv");
             yield return null;
         }
     }
