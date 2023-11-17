@@ -74,8 +74,6 @@ public class LightAttack : Attack
                 _targetController.SetStunTime = Time.time + _stunTime;
                 manager.TakeDamage(_damage);
             }
-
         }
-
     }
 }
