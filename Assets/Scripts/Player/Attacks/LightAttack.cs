@@ -61,7 +61,6 @@ public class LightAttack : Attack
                 Debug.Log("make light attack");
             }
             //Debug.Log("avsjgv");
-            yield return null;
         }
     }
     private void OnTriggerStay(Collider other)
@@ -75,8 +74,6 @@ public class LightAttack : Attack
                 _targetController.SetStunTime = Time.time + _stunTime;
                 manager.TakeDamage(_damage);
             }
-
         }
-
     }
 }
