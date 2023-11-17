@@ -109,7 +109,8 @@ public class PlayerManagement : MonoBehaviour
 
     public void ResetLife()
     {
-        _nbLife -= 1;
+        if(GameManager.Instance.nbPlayer > 1)
+            _nbLife -= 1;
         if (_nbLife > 0)
             _life = _maxLife;
     }

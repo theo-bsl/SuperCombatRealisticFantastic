@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 8737658158788991178}
   - component: {fileID: 2409171223135016977}
   - component: {fileID: 8570048946517139372}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: LightAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,9 +144,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 10
-  _timeAttack: 2
-  _preparationTime: 1
-  _recuperationTime: 1
+  _frameAttack: 2
+  _preparationFrame: 1
+  _recuperationFrame: 1
   _time: 0
   _stunTime: 1
   _playerManagement: {fileID: 0}
@@ -246,7 +246,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4128978465387303162}
-  - component: {fileID: 3149035162970541800}
   m_Layer: 3
   m_Name: Wrist_L
   m_TagString: Untagged
@@ -382,7 +381,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1256803433739529164}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Attacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,6 +478,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4455566679289869997}
   - component: {fileID: 5552696648686030413}
+  - component: {fileID: 2683205759264452240}
   m_Layer: 3
   m_Name: PlateSet1_Boots
   m_TagString: Untagged
@@ -610,6 +610,18 @@ SkinnedMeshRenderer:
     m_Center: {x: 1.0027803, y: -0.0048152357, z: -0.00007317215}
     m_Extent: {x: 0.06863809, y: 0.15034227, z: 0.21786866}
   m_DirtyAABB: 0
+--- !u!114 &2683205759264452240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166518935570140482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6cb3e24a00044140890bde2c438f435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1170900270638824656
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,7 +631,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6864457280454952400}
-  - component: {fileID: 8332006252350541609}
   m_Layer: 3
   m_Name: Wrist_R
   m_TagString: Untagged
@@ -659,6 +670,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5239451153552399063}
   - component: {fileID: 5090698659651428728}
+  - component: {fileID: 4807536367019387944}
   m_Layer: 3
   m_Name: PlateSet1_Shoulders
   m_TagString: Untagged
@@ -790,6 +802,18 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.46488023, y: -0.116214365, z: -0.0000731498}
     m_Extent: {x: 0.07406932, y: 0.119206086, z: 0.3569091}
   m_DirtyAABB: 0
+--- !u!114 &4807536367019387944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220233303245386527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6cb3e24a00044140890bde2c438f435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1279228434657845736
 GameObject:
   m_ObjectHideFlags: 0
@@ -871,6 +895,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4842816217722865895}
   - component: {fileID: 3251912422697562444}
+  - component: {fileID: 5068864059058869595}
   m_Layer: 3
   m_Name: PlateSet1_Pants
   m_TagString: Untagged
@@ -1002,6 +1027,18 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.4951734, y: -0.021778248, z: -0.00007315725}
     m_Extent: {x: 0.5072493, y: 0.16250014, z: 0.23951918}
   m_DirtyAABB: 0
+--- !u!114 &5068864059058869595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482926286473630932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6cb3e24a00044140890bde2c438f435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1622972479538254405
 GameObject:
   m_ObjectHideFlags: 0
@@ -1285,6 +1322,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2532326991133451291}
   - component: {fileID: 228755211718031478}
+  - component: {fileID: 2629060911483002509}
   m_Layer: 3
   m_Name: PlateSet1_Chest
   m_TagString: Untagged
@@ -1416,6 +1454,18 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.25519583, y: -0.07867024, z: -0.000073224306}
     m_Extent: {x: 0.32439306, y: 0.2883675, z: 0.8075824}
   m_DirtyAABB: 0
+--- !u!114 &2629060911483002509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019804905543736217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6cb3e24a00044140890bde2c438f435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2157081062283770135
 GameObject:
   m_ObjectHideFlags: 0
@@ -3451,6 +3501,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5590227373934373840}
   - component: {fileID: 8449019536711799445}
+  - component: {fileID: 5598252711347412310}
   m_Layer: 3
   m_Name: PlateSet1_Helmet
   m_TagString: Untagged
@@ -3582,6 +3633,18 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.73843324, y: 0.015946388, z: -0.0000731647}
     m_Extent: {x: 0.15053743, y: 0.151664, z: 0.13129225}
   m_DirtyAABB: 0
+--- !u!114 &5598252711347412310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4715975319693295642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6cb3e24a00044140890bde2c438f435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4742705552452919755
 GameObject:
   m_ObjectHideFlags: 0
@@ -4041,6 +4104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5227400853035217840}
   - component: {fileID: 7586604417805304646}
+  - component: {fileID: 1553432248076783344}
   m_Layer: 3
   m_Name: PlateSet1_Gloves
   m_TagString: Untagged
@@ -4172,6 +4236,18 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.3808869, y: -0.13253318, z: -0.000072956085}
     m_Extent: {x: 0.10781829, y: 0.10585849, z: 1.0073206}
   m_DirtyAABB: 0
+--- !u!114 &1553432248076783344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5431937753706960662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6cb3e24a00044140890bde2c438f435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5767427391241068974
 GameObject:
   m_ObjectHideFlags: 0
@@ -4495,7 +4571,7 @@ GameObject:
   - component: {fileID: 6389749548678098061}
   - component: {fileID: 8865197858754762322}
   - component: {fileID: 4354413247095006135}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: PowerfulAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4551,9 +4627,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 10
-  _timeAttack: 2
-  _preparationTime: 1
-  _recuperationTime: 1
+  _frameAttack: 2
+  _preparationFrame: 1
+  _recuperationFrame: 1
   _time: 0
   _stunTime: 1
   _playerManagement: {fileID: 0}
@@ -5686,6 +5762,7 @@ GameObject:
   - component: {fileID: 1323279470168077894}
   - component: {fileID: 7414719083151885261}
   - component: {fileID: 5145808455474703971}
+  - component: {fileID: 7753423439347739567}
   m_Layer: 3
   m_Name: Player 3
   m_TagString: Untagged
@@ -5895,6 +5972,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7d31e85a-4b9f-47b2-b172-d495f08bc87f
     m_ActionName: Player 2 /Move[/Keyboard/j,/Keyboard/l]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c2ed5ede-317c-414a-a273-f6273ef70a5e
+    m_ActionName: Player 2 /Spawn[/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player 1
@@ -6044,6 +6125,23 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &7753423439347739567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8196614452498081193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127635b4e934e14448c7ec40c2c41fdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materials:
+  - {fileID: 2100000, guid: 352bf4777b164c8479c22d4a03fea177, type: 2}
+  - {fileID: 2100000, guid: a9f3bd669cb2a474d8f01868a557f88a, type: 2}
+  - {fileID: 2100000, guid: 86e74f4f713587c4ca7f6be88c8b364c, type: 2}
+  - {fileID: 2100000, guid: 018b41e78de4b274caf66ff9ec652247, type: 2}
 --- !u!1 &8204108502660268275
 GameObject:
   m_ObjectHideFlags: 0
@@ -6544,7 +6642,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7070100373543728124}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Attacks (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

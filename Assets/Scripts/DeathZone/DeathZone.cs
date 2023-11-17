@@ -7,13 +7,10 @@ public class DeathZone : MonoBehaviour
 
     private int deathZoneLimitStart = -20;
 
-    private void Start()
-    {
-        playerList = GameManager.Instance.PlayerList;
-    }
 
     private void Update()
     {
+        playerList = GameManager.Instance.PlayerList;
         for (int i = 0; i < playerList.Count; i++)
         {
             if (playerList[i].activeSelf)
