@@ -322,10 +322,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay(Collision collision)
-    {
-        _velocity.x += _lastDirEjection ? -2f : 2f;
-    }
+    //private void OnCollisionStay(Collision collision)
+    //{
+    //    //_velocity.x += _lastDirEjection ? -2f : 2f;
+    //}
 
     private void ProtectionStopPause()
     {
