@@ -7,8 +7,10 @@ public class PlayerController : MonoBehaviour
 {
     //private Rigidbody rb;
     private Transform _transform;
+
     private PlayerManagement _playerManager;
     private ShieldManagement _shieldManager;
+    public Animator _animator;
 
     public LayerMask _groundLayerMask;
     public LayerMask _collisionMask; 
@@ -44,9 +46,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool _canDoubleJump = true;
     [SerializeField] private bool _isWatchingRight = false;
     private bool _lastDirEjection = true;
-
     [SerializeField] private bool _isClickOnDefending = false;
     [SerializeField] private bool _isInPause = false;
+
+    [SerializeField] private bool _canLightAttack = true;
+    [SerializeField] private bool _canPowerfulAttack = true;
 
     private void Awake()
     {
@@ -68,15 +72,40 @@ public class PlayerController : MonoBehaviour
             Gravity();
             EjectionCollisionVerification();
             ApplyVelocity();
+            Animation();
         }
 
         ProtectionStopPause();
     }
 
+    private void Update()
+    {
+        Debug.Log(Time.time);
+    }
+
+    private void Animation()
+    {
+
+        if(!_playerManager.IsAttacking)
+        {
+            _animator.SetBool("LightAttack", false);
+            _animator.SetBool("PowerfulAttack", false);
+        }
+
+        _animator.SetBool("IsStun", _isStun);
+        _animator.SetBool("IsDefending", _playerManager.IsDefending);
+
+        if(_animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit"))
+        {
+            _animator.SetBool("GetHit", false);
+        }
+    }
+
     private void Move()
     {
         StayAtDistance();
-        if (!_playerManager.IsAttacking && !_isStun && !_playerManager.IsDefending)
+
+        if ((!_playerManager.IsAttacking || (_playerManager.IsAttacking && !_isGrounded)) && !_isStun && !_playerManager.IsDefending)
         {
             if (_verticalMovement.x > 0)
             {
@@ -99,6 +128,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Physics.Raycast(_transform.position, Vector3.left, out RaycastHit hitInfo, 1.1f, _collisionMask))
         {
+            //Debug.Log(hitInfo.collider.gameObject.name);
             if (hitInfo.distance < _stayDistance)
             {
                 _velocity.x += 1;
@@ -108,6 +138,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Physics.Raycast(_transform.position, Vector3.right, out RaycastHit hitInf, 1.1f, _collisionMask))
         {
+            //Debug.Log(hitInf.collider.gameObject.name);
             if (hitInf.distance < _stayDistance)
             {
                 _velocity.x += -1;
@@ -118,10 +149,11 @@ public class PlayerController : MonoBehaviour
 
     private bool CollisionVerification()
     {
-        Debug.DrawRay(_transform.position, _isWatchingRight ? Vector3.right : Vector3.left* 1.1f);
+        //Debug.DrawRay(_transform.position, _isWatchingRight ? Vector3.right : Vector3.left* 1.1f);
         if (Physics.Raycast(_transform.position, _isWatchingRight ? Vector3.right : Vector3.left, out RaycastHit hitInfo, 1.1f, _collisionMask))
         {
-            if(hitInfo.distance < 1)
+            //Debug.Log(hitInfo.collider.gameObject.name);
+            if (hitInfo.distance < 1)
                 _velocity.x +=  -_verticalMovement.x;
             return false;
         }
@@ -134,6 +166,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Physics.Raycast(_transform.position, _ejectionVector.x > 0 ? Vector3.right : Vector3.left, out RaycastHit hitInfo, 1.1f, _collisionMask))
             {
+                //Debug.Log(hitInfo.collider.gameObject.name);
                 _ejectionVector.x = 0; 
             }
         }
@@ -190,6 +223,7 @@ public class PlayerController : MonoBehaviour
     {
         if(Physics.Raycast(_transform.position, -transform.up, out RaycastHit hitInfo, 1.1f, _groundLayerMask))
         {
+            //Debug.Log(hitInfo.collider.gameObject.name);
             _transform.position = hitInfo.point + Vector3.up;
             _isGrounded = true;
             _canDoubleJump = true;
@@ -205,6 +239,8 @@ public class PlayerController : MonoBehaviour
             _ejectionCanBeReset = true;
             _isGrounded = false;
         }
+
+        _animator.SetBool("IsGrounded", _isGrounded);
     }
 
     private void ApplyVelocity()
@@ -214,6 +250,9 @@ public class PlayerController : MonoBehaviour
 
         _velocity += _ejectionVector;
         _transform.position += _velocity * Time.deltaTime;
+
+        _animator.SetFloat("VelocityY",_velocity.y);
+
         _velocity = Vector3.zero;
     }
 
@@ -221,6 +260,8 @@ public class PlayerController : MonoBehaviour
     {
         _verticalMovement = context.ReadValue<Vector2>();
         _isMoving = Mathf.Abs(_verticalMovement.x) > 0;
+
+        _animator.SetBool("IsMoving", _isMoving);
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -228,7 +269,7 @@ public class PlayerController : MonoBehaviour
         _isJumpBtnPressed = context.ReadValueAsButton() && !GameManager.Instance.IsPaused;
         if ((_isGrounded || _canDoubleJump) && !_playerManager.IsAttacking && !_isStun && _isJumpBtnPressed && !_playerManager.IsDefending)
         {
-            if(!_isGrounded)
+            if (!_isGrounded)
             {
                 _velocity.y = 0;
                 _gravity = 0;
@@ -239,20 +280,30 @@ public class PlayerController : MonoBehaviour
             if (_isJumpBtnPressed)
             {
                 _JumpVelocity = _JumpStartVelocity;
+                _animator.SetBool("Jump", true);
             }
         }
+        else
+            _animator.SetBool("Jump", false);
     }
 
     public void OnLightAttack(InputAction.CallbackContext context) 
     {
-        if(!_isStun && !_playerManager.IsDefending &&!GameManager.Instance.IsPaused && context.ReadValueAsButton()) 
+        if(!_isStun && !_playerManager.IsDefending &&!GameManager.Instance.IsPaused && context.ReadValueAsButton() && _canLightAttack)
+        {
+            _animator.SetBool("LightAttack", true);
             _playerManager.ActiveLightAttack();
+        }
+            
     }
 
     public void OnPowerfulAttack(InputAction.CallbackContext context)
     {
-        if (!_isStun && !_playerManager.IsDefending && !GameManager.Instance.IsPaused && context.ReadValueAsButton())
+        if (!_isStun && !_playerManager.IsDefending && !GameManager.Instance.IsPaused && context.ReadValueAsButton() && _canPowerfulAttack)
+        {
+            _animator.SetBool("PowerfulAttack", true);
             _playerManager.ActivePowerfulAttack();
+        }
     }
 
     public void OnProtect(InputAction.CallbackContext context)
@@ -280,10 +331,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay(Collision collision)
-    {
-        _velocity.x += _lastDirEjection ? -2f : 2f;
-    }
+    //private void OnCollisionStay(Collision collision)
+    //{
+    //    //_velocity.x += _lastDirEjection ? -2f : 2f;
+    //}
 
     private void ProtectionStopPause()
     {
@@ -307,5 +358,10 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 SetEjectionVector { set => _ejectionVector = value; }
     public bool GetWatchingDir { get => _isWatchingRight; }
+    
+    public bool CanLightAttack { set => _canLightAttack = value; }
+    public bool CanPowerfulAttack { set => _canPowerfulAttack = value; }
     public float SetStunTime { set => _stunTimer = value; }
+
+    public Animator GetAnimator { get => _animator; }
 }

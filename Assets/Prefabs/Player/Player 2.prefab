@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 5920701406500381150}
   - component: {fileID: 1237454665756775810}
   - component: {fileID: 6110742276435586671}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 8342877650936189879}
   - component: {fileID: 616884079591730021}
   - component: {fileID: 178541335779553525}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: PowerfulAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,9 +316,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cc381836e7a08340a2a0381643214dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damage: 10
+  _timeAttack: 2
+  _preparationTime: 1
+  _recuperationTime: 1
+  _time: 0
+  _stunTime: 1
   _playerManagement: {fileID: 0}
   _currentState: 0
-  _spriteRenderer: {fileID: 0}
   _ejectionVector: {x: 30, y: 30, z: 0}
 --- !u!212 &178541335779553525
 SpriteRenderer:
@@ -381,7 +386,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2588370157170309157}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -819,7 +824,7 @@ GameObject:
   - component: {fileID: 6694858742953252725}
   - component: {fileID: 8699085726606909216}
   - component: {fileID: 8517543390971022106}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: LightAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -853,9 +858,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bfa4cd2e5316c74f85f09d16a7421d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damage: 10
+  _timeAttack: 2
+  _preparationTime: 1
+  _recuperationTime: 1
+  _time: 0
+  _stunTime: 1
   _playerManagement: {fileID: 0}
   _currentState: 0
-  _spriteRenderer: {fileID: 0}
 --- !u!135 &8699085726606909216
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1302,6 +1312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25e2a8562d312e14293e3e6af3ed1945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
   _groundLayerMask:
     serializedVersion: 2
     m_Bits: 8
@@ -1325,10 +1336,16 @@ MonoBehaviour:
   _maxHoldJumpBtn: 0.2
   _dragResistance: 0.99
   _stunTimer: 0
+  _timeHoldBtn: 0
+  _stayDistance: 1
+  _isMoving: 0
   _isJumpBtnPressed: 0
   _isGrounded: 0
+  _isStun: 0
   _canDoubleJump: 1
   _isWatchingRight: 0
+  _isClickOnDefending: 0
+  _isInPause: 0
 --- !u!114 &1323279470168077894
 MonoBehaviour:
   m_ObjectHideFlags: 0

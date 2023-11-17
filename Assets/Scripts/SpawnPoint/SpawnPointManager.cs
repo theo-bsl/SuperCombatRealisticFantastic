@@ -42,7 +42,7 @@ public class SpawnPointManager : MonoBehaviour
             }
         }
 
-        Debug.Log(freeSpawnPointsIndex.Count);
+        //Debug.Log(freeSpawnPointsIndex.Count);
         return spawnPoints[spawnPoints.Length - 1].transform.position;
     }
 

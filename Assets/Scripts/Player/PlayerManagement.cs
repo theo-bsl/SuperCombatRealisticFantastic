@@ -95,6 +95,7 @@ public class PlayerManagement : MonoBehaviour
     public void TakeDamage(float damage)
     {
         _life -= damage;
+        GetComponent<PlayerController>().GetAnimator.SetBool("GetHit", true);
         CheckLife();
     }
 
