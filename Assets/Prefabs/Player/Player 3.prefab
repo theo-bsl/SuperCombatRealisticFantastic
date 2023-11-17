@@ -150,6 +150,7 @@ MonoBehaviour:
   _time: 0
   _stunTime: 1
   _playerManagement: {fileID: 0}
+  _playerController: {fileID: 0}
   _currentState: 0
 --- !u!135 &8570048946517139372
 SphereCollider:
@@ -275,26 +276,6 @@ Transform:
   - {fileID: 1256803433739529164}
   m_Father: {fileID: 3559640172810371390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3149035162970541800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 604744195963001331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bfa4cd2e5316c74f85f09d16a7421d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _damage: 10
-  _timeAttack: 2
-  _preparationTime: 1
-  _recuperationTime: 1
-  _time: 0
-  _stunTime: 1
-  _playerManagement: {fileID: 0}
-  _currentState: 0
 --- !u!1 &714177222726270035
 GameObject:
   m_ObjectHideFlags: 0
@@ -668,26 +649,6 @@ Transform:
   - {fileID: 7070100373543728124}
   m_Father: {fileID: 7012259440492142066}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8332006252350541609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1170900270638824656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bfa4cd2e5316c74f85f09d16a7421d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _damage: 10
-  _timeAttack: 2
-  _preparationTime: 1
-  _recuperationTime: 1
-  _time: 0
-  _stunTime: 1
-  _playerManagement: {fileID: 0}
-  _currentState: 0
 --- !u!1 &1220233303245386527
 GameObject:
   m_ObjectHideFlags: 0
@@ -4596,6 +4557,7 @@ MonoBehaviour:
   _time: 0
   _stunTime: 1
   _playerManagement: {fileID: 0}
+  _playerController: {fileID: 0}
   _currentState: 0
   _ejectionVector: {x: -10, y: 30, z: 0}
 --- !u!1 &6634939798325627301

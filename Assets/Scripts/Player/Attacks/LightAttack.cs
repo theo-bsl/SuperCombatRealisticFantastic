@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class LightAttack : Attack
 {
-
+    bool _isPlaying = false;
     protected override void Awake()
     {
         base.Awake();
         _damage = 10;
-        _timeAttack = 0.4f;
-        _preparationTime = 0.05f;
-        _recuperationTime = .1f;
+        _preparationFrame = 17;
+        _frameAttack = 30;
+        _recuperationFrame = 40;
         _stunTime = 1;
     }
 
@@ -18,31 +18,47 @@ public class LightAttack : Attack
     {
         //_spriteRenderer.color = Color.white;
         _currentState = State.Preparation;
-        _time = Time.time + _preparationTime;
         _alreadyKick.Clear();
-        StartCoroutine(ILightAttack());
+        _isPlaying = false;
+        //StartCoroutine(ILightAttack());
     }
 
-    private IEnumerator ILightAttack()
+    private void Update()
     {
-        while (_playerManagement.IsAttacking)
+        //while (_playerController.GetAnimator.GetCurrentAnimatorStateInfo(0).IsTag("LightAttack") || !_isPlaying)
         {
-            if (Time.time > _time)
+            if (_playerController.GetAnimator.GetCurrentAnimatorStateInfo(0).IsTag("LightAttack"))
             {
-                switch (_currentState)
+                _isPlaying = true;
+
+                int currentFrame = GetCurrentFrame(_playerController.GetAnimator.GetCurrentAnimatorClipInfo(0));
+                Debug.Log("Frame :: " + currentFrame);
+
+                if (currentFrame < 0)
                 {
-                    case State.Preparation:
-                        _currentState = State.Attack; _time = Time.time + _timeAttack; _canMakeDamage = true; /*_spriteRenderer.color = Color.red;*/
-                        break;
-
-                    case State.Attack:
-                        _currentState = State.Recuperation; _time = Time.time + _recuperationTime; _canMakeDamage = false; /*_spriteRenderer.color = Color.black;*/
-                        break;
-
-                    case State.Recuperation:
-                        gameObject.SetActive(false);/* _spriteRenderer.color = Color.yellow;*/ _playerManagement.IsAttacking = false;
-                        break;
+                    _canMakeDamage = false;
+                    _currentState = State.Preparation;
+                    Debug.Log(_currentState);
                 }
+
+                else if (currentFrame < _preparationFrame)
+                {
+                    _canMakeDamage = true;
+                    _currentState = State.Attack;
+                    Debug.Log(_currentState);
+                }
+                else if (currentFrame < _frameAttack)
+                {
+                    _canMakeDamage = false;
+                    _currentState = State.Recuperation;
+                    Debug.Log(_currentState);
+                }
+                else
+                {
+                    _playerManagement.IsAttacking = false;
+                    gameObject.SetActive(false);
+                }
+                Debug.Log("make light attack");
             }
             //Debug.Log("avsjgv");
             yield return null;
