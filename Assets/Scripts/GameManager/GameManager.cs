@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 
     public bool IsPaused = false;
 
-    public int nbPlayer = 2;
+    public int nbPlayer = 0;
     public List<GameObject> PlayerList;
 
     public GameObject VictoryMenu;
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (CheckActifPlayer() == 1 && !isGameOver)
+        if (CheckActifPlayer() == 1 && !isGameOver && nbPlayer > 1)
         {
             GameOver();
         }
@@ -66,5 +66,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         isGameOver = true;
         VictoryMenu.SetActive(true);
+    }
+
+    public void AddPlayer(GameObject player)
+    { 
+        PlayerList.Add(player); 
+        nbPlayer++; 
     }
 }
