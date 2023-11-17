@@ -59,8 +59,8 @@ public class LightAttack : Attack
                     gameObject.SetActive(false);
                 }
                 Debug.Log("make light attack");
-                yield return null;
             }
+            yield return null;
         }
     }
     private void OnTriggerStay(Collider other)
