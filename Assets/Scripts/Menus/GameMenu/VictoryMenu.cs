@@ -7,6 +7,7 @@ public class VictoryMenu : MonoBehaviour
     private List<GameObject> playerList = new List<GameObject>();
 
     public List<GameObject> playerFaceList;
+    public List<GameObject> playerBackgroundList;
     public TextMeshProUGUI winnerName;
 
     private void Awake()
@@ -24,6 +25,7 @@ public class VictoryMenu : MonoBehaviour
         int index = GetActifPlayerIndex();
 
         playerFaceList[index].SetActive(true);
+        playerBackgroundList[index].SetActive(true);
         winnerName.text = playerFaceList[index].name;
     }
 
