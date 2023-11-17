@@ -20,12 +20,12 @@ public class LightAttack : Attack
         _currentState = State.Preparation;
         _alreadyKick.Clear();
         _isPlaying = false;
-        //StartCoroutine(ILightAttack());
+        StartCoroutine(ILightAttack());
     }
 
-    private void Update()
+    private IEnumerator ILightAttack()
     {
-        //while (_playerController.GetAnimator.GetCurrentAnimatorStateInfo(0).IsTag("LightAttack") || !_isPlaying)
+        while (_playerController.GetAnimator.GetCurrentAnimatorStateInfo(0).IsTag("LightAttack") || !_isPlaying)
         {
             if (_playerController.GetAnimator.GetCurrentAnimatorStateInfo(0).IsTag("LightAttack"))
             {
@@ -59,6 +59,7 @@ public class LightAttack : Attack
                     gameObject.SetActive(false);
                 }
                 Debug.Log("make light attack");
+                yield return null;
             }
         }
     }
