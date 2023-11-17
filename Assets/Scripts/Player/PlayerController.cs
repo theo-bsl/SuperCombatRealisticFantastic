@@ -119,7 +119,6 @@ public class PlayerController : MonoBehaviour
     {
         if (Physics.Raycast(_transform.position, Vector3.left, out RaycastHit hitInfo, 1.1f, _collisionMask))
         {
-            Debug.Log(hitInfo.collider.gameObject.name);
             if (hitInfo.distance < _stayDistance)
             {
                 _velocity.x += 1;
@@ -129,7 +128,6 @@ public class PlayerController : MonoBehaviour
         }
         if (Physics.Raycast(_transform.position, Vector3.right, out RaycastHit hitInf, 1.1f, _collisionMask))
         {
-            Debug.Log(hitInf.collider.gameObject.name);
             if (hitInf.distance < _stayDistance)
             {
                 _velocity.x += -1;
@@ -143,7 +141,6 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(_transform.position, _isWatchingRight ? Vector3.right : Vector3.left* 1.1f);
         if (Physics.Raycast(_transform.position, _isWatchingRight ? Vector3.right : Vector3.left, out RaycastHit hitInfo, 1.1f, _collisionMask))
         {
-            Debug.Log(hitInfo.collider.gameObject.name);
             if (hitInfo.distance < 1)
                 _velocity.x +=  -_verticalMovement.x;
             return false;
@@ -157,7 +154,6 @@ public class PlayerController : MonoBehaviour
         {
             if (Physics.Raycast(_transform.position, _ejectionVector.x > 0 ? Vector3.right : Vector3.left, out RaycastHit hitInfo, 1.1f, _collisionMask))
             {
-                Debug.Log(hitInfo.collider.gameObject.name);
                 _ejectionVector.x = 0; 
             }
         }
@@ -214,7 +210,6 @@ public class PlayerController : MonoBehaviour
     {
         if(Physics.Raycast(_transform.position, -transform.up, out RaycastHit hitInfo, 1.1f, _groundLayerMask))
         {
-            Debug.Log(hitInfo.collider.gameObject.name);
             _transform.position = hitInfo.point + Vector3.up;
             _isGrounded = true;
             _canDoubleJump = true;
