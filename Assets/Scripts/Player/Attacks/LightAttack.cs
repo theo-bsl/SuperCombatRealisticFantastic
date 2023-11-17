@@ -11,7 +11,8 @@ public class LightAttack : Attack
         _preparationFrame = 17;
         _frameAttack = 30;
         _recuperationFrame = 40;
-        _stunTime = 1;
+        _stunTime = .25f;
+        _waitTime = .5f;
     }
 
     private void OnEnable()
@@ -20,6 +21,7 @@ public class LightAttack : Attack
         _currentState = State.Preparation;
         _alreadyKick.Clear();
         _isPlaying = false;
+        _playerController.CanLightAttack = false;
         StartCoroutine(ILightAttack());
     }
 
@@ -56,12 +58,18 @@ public class LightAttack : Attack
                 else
                 {
                     _playerManagement.IsAttacking = false;
-                    gameObject.SetActive(false);
+                    _time = Time.time + _waitTime;
                 }
                 Debug.Log("make light attack");
             }
             yield return null;
         }
+        while (_time > Time.time)
+        {
+            yield return null;
+        }
+        _playerController.CanLightAttack = true;
+        gameObject.SetActive(false);
     }
     private void OnTriggerStay(Collider other)
     {

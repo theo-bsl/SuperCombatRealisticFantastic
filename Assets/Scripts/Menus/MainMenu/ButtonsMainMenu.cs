@@ -8,7 +8,7 @@ public class ButtonsMainMenu : MonoBehaviour
 
     public void ButtonStart()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("Game");
     }
 
     public void ButtonQuit()

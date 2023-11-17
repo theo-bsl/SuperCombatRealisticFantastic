@@ -8,6 +8,7 @@ public class Attack : MonoBehaviour
     [SerializeField] protected int _preparationFrame = 1;
     [SerializeField] protected int _recuperationFrame = 1;
     [SerializeField] protected float _time = 0;
+    [SerializeField] protected float _waitTime = 0;
     [SerializeField] protected float _stunTime = 1;
 
     [SerializeField] protected PlayerManagement _playerManagement;
