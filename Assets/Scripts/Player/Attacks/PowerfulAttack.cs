@@ -13,6 +13,7 @@ public class PowerfulAttack : Attack
         _frameAttack = 40;
         _recuperationFrame = 42;
         _stunTime = 2;
+        _waitTime = 1.5f;
     }
     private void OnEnable()
     {
@@ -20,6 +21,7 @@ public class PowerfulAttack : Attack
         _currentState = State.Preparation;
         _alreadyKick.Clear();
         _isPlaying = false;
+        _playerController.CanPowerfulAttack = false;
         StartCoroutine(IPowerfulAttack());
     }
 
@@ -56,13 +58,19 @@ public class PowerfulAttack : Attack
                 else
                 {
                     _playerManagement.IsAttacking = false;
-                    gameObject.SetActive(false);
+                    _time = Time.time + _waitTime;
                 }
                 Debug.Log("make Powerful Attack");
             }
             //Debug.Log("avsjgv");
             yield return null;
         }
+        while (_time > Time.time)
+        {
+            yield return null;
+        }
+        _playerController.CanPowerfulAttack = true;
+        gameObject.SetActive(false);
     }
     private void OnTriggerStay(Collider other)
     {

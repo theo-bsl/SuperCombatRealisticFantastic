@@ -144,9 +144,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 10
-  _timeAttack: 2
-  _preparationTime: 1
-  _recuperationTime: 1
+  _frameAttack: 2
+  _preparationFrame: 1
+  _recuperationFrame: 1
   _time: 0
   _stunTime: 1
   _playerManagement: {fileID: 0}
@@ -246,7 +246,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4128978465387303162}
-  - component: {fileID: 3149035162970541800}
   m_Layer: 3
   m_Name: Wrist_L
   m_TagString: Untagged
@@ -619,7 +618,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6864457280454952400}
-  - component: {fileID: 8332006252350541609}
   m_Layer: 3
   m_Name: Wrist_R
   m_TagString: Untagged
@@ -4551,9 +4549,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 10
-  _timeAttack: 2
-  _preparationTime: 1
-  _recuperationTime: 1
+  _frameAttack: 2
+  _preparationFrame: 1
+  _recuperationFrame: 1
   _time: 0
   _stunTime: 1
   _playerManagement: {fileID: 0}
